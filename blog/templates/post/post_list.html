@@ -1,0 +1,43 @@
+{% block header %}
+    <style type="text/css">
+        #header { height: 100px;border: solid; text-align: center}
+    </style>
+    <div id="header">
+    {% block sidebar %}
+        <style type="text/css">
+            #sidebar { float: right; border: 1px solid #ccc; padding: 4px; padding-top: 1px; }
+        </style>
+        <div id="sidebar">
+            <a href="/login/">Log in</a>
+        </div>
+    {% endblock %}
+    <h3><p>tytul</p></h3>
+    </div>
+{% endblock  %}
+
+
+
+
+{% block content %}
+    <style type="text/css">
+        #content {text-align: center}
+    </style>
+    <div id="content">
+    {% if post_list %}
+            <ul>
+            {% for post  in post_list %}
+                <a href="/post/{{post.id }}/"><h1>{{post.title }}</h1></a>
+                <h3>{{ post.pub_date }}</h3>
+                {{ post.post_content }}
+            {% endfor %}
+
+            </ul>
+    {% else %}
+            <p>There are no posts in our base yet.</p>
+
+    {% endif %}
+    </div>
+{% endblock %}
+
+
+
