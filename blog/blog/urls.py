@@ -11,6 +11,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^post/', include('post.urls')),
     url(r'^account/', include('post.urls')),
+    url(r'^ckeditor/', include('ckeditor.urls')),
 )
 
 handler404 = 'forms.views.error404'

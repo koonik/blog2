@@ -4,7 +4,10 @@
 
 {% block content %}
     <form action="/account/blog/add_post/" method="post">{% csrf_token %}
-        {{STATIC_ROOT}}ckeditor.js
+        
+        {{ form.title | safe }}
+        {{ form.post_content | safe}}
+        {{ form.pub_date | safe }}
 
     <input type="submit" value="Submit" />
     </form>

@@ -38,7 +38,7 @@ class Post(models.Model):
 
 
 class PostForm(forms.ModelForm):
-        post_content = forms.CharField(widget=CKEditorWidget())
+        content = forms.CharField(widget=CKEditorWidget())
         class Meta:
             model = Post
             fields = ['title', 'post_content', 'pub_date']
