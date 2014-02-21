@@ -8,7 +8,7 @@
     <div id="content">
         <h1>{{ post.title }}</h1>
         {{ post.pub_date }}
-        <h2>{{ post.post_content}}</h2>
+        <h2>{{ post.post_content|safe }}</h2>
     </div>
 
 {% endblock %}

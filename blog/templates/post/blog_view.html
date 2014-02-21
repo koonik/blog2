@@ -6,7 +6,7 @@
     {% if post_list %}
             <ul>
             {% for post  in post_list %}
-                <h1>{{post.title }}</h1>
+                {{post.title }}
                 <a href="/account/blog/{{ post.id }}"><p>Edit?</p></a>
             {% endfor %}
 

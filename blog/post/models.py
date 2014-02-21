@@ -2,12 +2,14 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django import forms
 from ckeditor.widgets import CKEditorWidget
+from ckeditor.fields import RichTextField, RichTextFormField
+from django.contrib.admin import widgets
 
 
 class Post(models.Model):
     title = models.CharField(max_length=250)
-    post_content = models.CharField(max_length=6000)
-    pub_date = models.DateTimeField('published')
+    post_content = RichTextField(max_length=6000, config_name='default')
+    pub_date = models.DateTimeField('date published')
     year = models.IntegerField()
     month = models.IntegerField()
     slug = models.SlugField()
@@ -38,8 +40,10 @@ class Post(models.Model):
 
 
 class PostForm(forms.ModelForm):
-        content = forms.CharField(widget=CKEditorWidget())
+
         class Meta:
             model = Post
-            fields = ['title', 'post_content', 'pub_date']
+
+
+
 

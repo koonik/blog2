@@ -3,15 +3,26 @@ from post.models import Post, PostForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 def index(request):
-    post_list = Post.objects.all()[:50]
-    template = loader.get_template('post/post_list.html')
-    context = RequestContext(request, {
-        'post_list': post_list,
-    })
-    return HttpResponse(template.render(context))
+    post_list = Post.objects.all()
+    paginator = Paginator(post_list, 5)
+
+    page = request.GET.get('page')
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        posts = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        posts = paginator.page(paginator.num_pages)
+
+    return render_to_response('post/post_list.html', {'posts': posts})
+
+
 
 
 def detail(request, id):
@@ -73,12 +84,14 @@ def add_post(request):
 
 
 def post_edit(request, id):
+    post = Post.objects.get(id=id)
     if request.method == 'POST':  # If the form has been submitted...
-        form = get_object_or_404(PostForm, id=id)  # A form bound to the POST data
+        form = PostForm(request.POST, instance=post)  # A form bound to the POST data
         if form.is_valid():  # All validation rules pass
             form.save()
             return HttpResponseRedirect('/account/blog/')    # Redirect after POST
     else:
-        form = PostForm()
+        form = PostForm(instance=post)
 
-    return render(request, 'post/post_edit.html', {'form': form, })
+    return render(request, 'post/post_edit.html', {'form': form, 'post':post, })
+

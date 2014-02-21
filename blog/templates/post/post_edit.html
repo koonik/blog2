@@ -3,7 +3,7 @@
 
 {% block content %}
     <div id="content">
-    <form action="/account/blog/add_post/" method="post">{% csrf_token %}
+    <form action="/account/blog/{{ post.id }}/" method="post">{% csrf_token %}
         <ul>
             {% autoescape off %}
             {{ form.media }}

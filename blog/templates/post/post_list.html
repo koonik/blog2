@@ -20,17 +20,9 @@
     </div>
 {% endblock  %}
 
-
-
-
-{% block content %}
-    <style type="text/css">
-        #content {text-align: center; height: 100%}
-    </style>
-    <div id="content">
-    {% block sidebar %}
+{% block sidebar %}
         <style type="text/css">
-            #sidebar { float: right; background: chartreuse; width: 300px; height: 100% }
+            #sidebar { float: right; background: chartreuse; width: 20%; height: 100%; }
         </style>
         <div id="sidebar">
 
@@ -43,14 +35,38 @@
 
         </div>
 
-    {% endblock %}
-    {% if post_list %}
+{% endblock %}
+
+
+{% block content %}
+    <style type="text/css">
+        #content {text-align: center; height: 100%; word-wrap: break-word; float: left; width: 80%}
+    </style>
+    <div id="content">
+
+    {% if posts %}
             <ul>
-            {% for post  in post_list %}
+            {% for post  in posts %}
                 <a href="/post/{{post.year }}/{{ post.month }}/{{ post.id }}"><h1>{{post.title }}</h1></a>
                 <h3>{{ post.pub_date }}</h3>
-                {{ post.post_content }}
+                {{ post.post_content |safe | truncatewords:"200" }}
             {% endfor %}
+
+            <div class="pagination">
+                <span class="step-links">
+                {% if posts.has_previous %}
+                    <a href="?page={{ posts.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
+                </span>
+
+                {% if posts.has_next %}
+                    <a href="?page={{ posts.next_page_number }}">next</a>
+                {% endif %}
+                </span>
+            </div>
 
             </ul>
     {% else %}
