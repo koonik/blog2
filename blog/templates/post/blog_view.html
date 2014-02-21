@@ -1,0 +1,23 @@
+{% extends 'post/post_list.html' %}
+
+
+{% block content %}
+
+    {% if post_list %}
+            <ul>
+            {% for post  in post_list %}
+                <h1>{{post.title }}</h1>
+                <a href="/account/blog/{{ post.id }}"><p>Edit?</p></a>
+            {% endfor %}
+
+            </ul>
+    {% else %}
+            <p>There are no posts in our base yet.</p>
+
+    {% endif %}
+    <a href="/account/blog/add_post/"><p>Add new post</p></a>
+{% endblock %}
+
+
+
+

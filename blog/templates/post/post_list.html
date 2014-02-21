@@ -1,14 +1,19 @@
 {% block header %}
     <style type="text/css">
-        #header { height: 100px;border: solid; text-align: center}
+        #header { height: 100px;background: darkmagenta; text-align: center; padding-top: 40px}
     </style>
     <div id="header">
-    {% block sidebar %}
+    {% block logbar %}
         <style type="text/css">
-            #sidebar { float: right; border: 1px solid #ccc; padding: 4px; padding-top: 1px; }
+            #logbar { float: right; background: azure ; width: 50px }
         </style>
-        <div id="sidebar">
-            <a href="/login/">Log in</a>
+        <div id="logbar">
+            {% if user.is_authenticated %}
+                <a href="/account/logout/">Log out</a>
+            {% else %}
+                <a href="/account/login/">Log in</a>
+            {% endif %}
+
         </div>
     {% endblock %}
     <h3><p>tytul</p></h3>
@@ -20,13 +25,29 @@
 
 {% block content %}
     <style type="text/css">
-        #content {text-align: center}
+        #content {text-align: center; height: 100%}
     </style>
     <div id="content">
+    {% block sidebar %}
+        <style type="text/css">
+            #sidebar { float: right; background: chartreuse; width: 300px; height: 100% }
+        </style>
+        <div id="sidebar">
+
+            <ul>
+
+                <a href="/account/blog/">pisz blog</a>
+
+            </ul>
+
+
+        </div>
+
+    {% endblock %}
     {% if post_list %}
             <ul>
             {% for post  in post_list %}
-                <a href="/post/{{post.id }}/"><h1>{{post.title }}</h1></a>
+                <a href="/post/{{post.year }}/{{ post.month }}/{{ post.id }}"><h1>{{post.title }}</h1></a>
                 <h3>{{ post.pub_date }}</h3>
                 {{ post.post_content }}
             {% endfor %}
@@ -36,8 +57,12 @@
             <p>There are no posts in our base yet.</p>
 
     {% endif %}
+
+
+
     </div>
 {% endblock %}
+
 
 
 

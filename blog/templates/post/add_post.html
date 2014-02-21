@@ -1,0 +1,11 @@
+{% extends "post/post_list.html" %}
+
+
+
+{% block content %}
+    <form action="/account/blog/add_post/" method="post">{% csrf_token %}
+        {{STATIC_ROOT}}ckeditor.js
+
+    <input type="submit" value="Submit" />
+    </form>
+{% endblock %}
