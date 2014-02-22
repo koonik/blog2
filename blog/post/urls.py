@@ -10,6 +10,11 @@ urlpatterns = patterns('',
 )
 
 urlpatterns += patterns('',
+    url(r'^month/(\d+)/(\d+)/$', views.month),
+
+)
+
+urlpatterns += patterns('',
     url(r'^(\d{4})/(\d{1,2})/(?P<id>\d+)/$', views.detail, name='detail'),
 )
 

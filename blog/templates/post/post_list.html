@@ -22,14 +22,23 @@
 
 {% block sidebar %}
         <style type="text/css">
-            #sidebar { float: right; background: chartreuse; width: 20%; height: 100%; }
+            #sidebar { float: right; background: chartreuse; width: 20%; height: auto; }
         </style>
         <div id="sidebar">
 
             <ul>
 
-                <a href="/account/blog/">pisz blog</a>
+                <p><a href="/account/blog/">write blog</a></p>
 
+                <br>Monthly Archive</br>
+                <br>
+                {% for month in months %}
+                    {% ifchanged month.0 %}
+                        {{ month.0 }}
+                    {% endifchanged %}
+                    <p><a href="/post/month/{{month.0}}/{{month.1}} ">{{ month.2 }}</a></p>
+                {% endfor %}
+                </br>
             </ul>
 
 
