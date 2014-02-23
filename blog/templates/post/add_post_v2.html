@@ -1,0 +1,18 @@
+{% extends "base templates/base.html" %}
+
+
+{% block content %}
+<div id="content">
+<form action="/account/blog/add_post/" method="post">
+    {% csrf_token %}
+    <input type="text" name="title" id="title" value="{{ post.title }}"/>
+    <label for="title">title</label>
+    {{ form.media }}
+    <input type="text" name="content" id="content" value="{{ post.post_content }}"/>
+
+    <input type="date" name="published" id="published" value="{{ post.pub_date }}" />
+    <label for="published">published</label>
+    <input type="submit" value="Submit" />
+    </form>
+</div>
+{% endblock %}

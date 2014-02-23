@@ -1,19 +1,15 @@
-{% extends "post/post_list.html" %}
+{% extends "base templates/base.html" %}
 
 
 {% block content %}
     <div id="content">
     <form action="/account/blog/add_post/" method="post">{% csrf_token %}
-        <ul>
             {% autoescape off %}
             {{ form.media }}
             {{ form.title }}
-
             {{ form.post_content }}
-
             {{ form.pub_date }}
             {% endautoescape %}
-        </ul>
     <input type="submit" value="Submit" />
     </form>
     </div>

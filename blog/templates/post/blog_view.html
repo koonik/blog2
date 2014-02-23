@@ -1,13 +1,17 @@
-{% extends 'post/post_list.html' %}
+{% extends 'base templates/base.html' %}
 
 
 {% block content %}
-
+    <a href="/account/blog/add_post/"><p>Add new post</p></a>
     {% if post_list %}
             <ul>
             {% for post  in post_list %}
-                {{post.title }}
-                <a href="/account/blog/{{ post.id }}"><p>Edit?</p></a>
+
+                <p>{{post.title }}
+                <a href="/account/blog/{{ post.id }}">Edit</a></p>
+                <form action='{{ post.id }}/delete/' method="post">{% csrf_token %}
+                <input type='submit' name='delete' value='Delete' />
+                </form>
             {% endfor %}
 
             </ul>
@@ -15,7 +19,7 @@
             <p>There are no posts in our base yet.</p>
 
     {% endif %}
-    <a href="/account/blog/add_post/"><p>Add new post</p></a>
+
 {% endblock %}
 
 

@@ -1,0 +1,42 @@
+{% extends 'base templates/base.html' %}
+
+{% block content %}
+    <div id="content">
+<table style="width: 100%; ">
+		<tbody>
+			<tr>
+				<th>Post title</th>
+				<th>Published</th>
+                <th> </th>
+                <th> </th>
+			</tr>
+
+            {% if post_list %}
+                {% for post  in post_list %}
+                    <tr>
+                    <td><h3>{{post.title }}</h3></td>
+                    <td>{{ post.pub_date }}</td>
+                    <td><a href="/account/blog/{{ post.id }}">Edit</a></td>
+                    <td><form action='{{ post.id }}/delete/' method="post">{% csrf_token %}
+                    <input type='submit' name='delete' value='Delete' />
+                    </form></td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+            <th>There are no posts in our base yet.</th>
+
+            {% endif %}
+        </tbody>
+		<tfoot>
+	        <tr id="footer_row">
+	            <td><a href="/account/blog/add_post/"><p>Add new post</p></a></td>
+	        </tr>
+		</tfoot>
+</table>
+</div>
+
+{% endblock %}
+
+
+
+

@@ -1,93 +1,23 @@
-{% block header %}
-    <style type="text/css">
-        #header { height: 100px;background: darkmagenta; text-align: center; padding-top: 40px}
-    </style>
-    <div id="header">
-    {% block logbar %}
-        <style type="text/css">
-            #logbar { float: right; background: azure ; width: 50px }
-        </style>
-        <div id="logbar">
-            {% if user.is_authenticated %}
-                <a href="/account/logout/">Log out</a>
-            {% else %}
-                <a href="/account/login/">Log in</a>
-            {% endif %}
+{% extends 'base templates/base.html' %}
 
-        </div>
-    {% endblock %}
-    <h3><p>tytul</p></h3>
-    </div>
-{% endblock  %}
 
-{% block sidebar %}
-        <style type="text/css">
-            #sidebar { float: right; background: chartreuse; width: 20%; height: auto; }
-        </style>
-        <div id="sidebar">
-
-            <ul>
-
-                <p><a href="/account/blog/">write blog</a></p>
-
-                <br>Monthly Archive</br>
-                <br>
-                {% for month in months %}
-                    {% ifchanged month.0 %}
-                        {{ month.0 }}
-                    {% endifchanged %}
-                    <p><a href="/post/month/{{month.0}}/{{month.1}} ">{{ month.2 }}</a></p>
+<div id="content">
+    {% block content %}
+        {% if posts %}
+                <ul>
+                {% for post  in posts %}
+                    <br><a href="/post/{{post.year }}/{{ post.month }}/{{ post.id }}"><h1>{{post.title }}</h1></a>
+                    <h3>{{ post.pub_date }}</h3>
+                    {{ post.post_content |safe | truncatewords:"200" }} </br>
                 {% endfor %}
-                </br>
-            </ul>
 
+                </ul>
+        {% else %}
+                <p>There are no posts in our base yet.</p>
 
-        </div>
-
-{% endblock %}
-
-
-{% block content %}
-    <style type="text/css">
-        #content {text-align: center; height: 100%; word-wrap: break-word; float: left; width: 80%}
-    </style>
-    <div id="content">
-
-    {% if posts %}
-            <ul>
-            {% for post  in posts %}
-                <a href="/post/{{post.year }}/{{ post.month }}/{{ post.id }}"><h1>{{post.title }}</h1></a>
-                <h3>{{ post.pub_date }}</h3>
-                {{ post.post_content |safe | truncatewords:"200" }}
-            {% endfor %}
-
-            <div class="pagination">
-                <span class="step-links">
-                {% if posts.has_previous %}
-                    <a href="?page={{ posts.previous_page_number }}">previous</a>
-                {% endif %}
-
-                <span class="current">
-                    Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
-                </span>
-
-                {% if posts.has_next %}
-                    <a href="?page={{ posts.next_page_number }}">next</a>
-                {% endif %}
-                </span>
-            </div>
-
-            </ul>
-    {% else %}
-            <p>There are no posts in our base yet.</p>
-
-    {% endif %}
-
-
-
-    </div>
-{% endblock %}
-
+        {% endif %}
+    {% endblock %}
+</div>
 
 
 

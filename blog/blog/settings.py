@@ -16,8 +16,9 @@ TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
 
 CKEDITOR_UPLOAD_PATH = [os.path.join(BASE_DIR, 'uploads')]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'post/static')
+STATIC_URL = '/static/'
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
@@ -87,12 +88,12 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
-STATIC_URL = '/static/'
+
 
 CKEDITOR_CONFIGS = {
            'default': {
                'toolbar': 'Full',
                'height': 300,
-               'width': 1000,
+               'width': 700,
            },
        }

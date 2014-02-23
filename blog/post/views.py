@@ -1,5 +1,6 @@
 from django.shortcuts import *
-from post.models import Post, PostForm
+from post.models import Post
+from post.forms import PostForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
@@ -24,7 +25,7 @@ def index(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         posts = paginator.page(paginator.num_pages)
 
-    return render_to_response('post/post_list.html', {'posts': posts, 'months': months})
+    return render(request, 'post/post_list.html', {'posts': posts, 'months': months})
 
 def month(request, year, month):
     post_list = Post.objects.filter(pub_date__year=year, pub_date__month=month)
@@ -108,9 +109,10 @@ def log_out(request):
 @login_required(login_url='/account/login/')
 def blog_view(request):
     post_list = Post.objects.all()
-    return render(request, 'post/blog_view.html', {'post_list': post_list})
+    return render(request, 'post/blog_view_table.html', {'post_list': post_list})
 
 
+@login_required(login_url='/account/login/')
 def add_post(request):
     if request.method == 'POST':  # If the form has been submitted...
         form = PostForm(request.POST)  # A form bound to the POST data
@@ -124,6 +126,7 @@ def add_post(request):
     return render(request, 'post/add_post.html', {'form': form, })
 
 
+@login_required(login_url='/account/login/')
 def post_edit(request, id):
     post = Post.objects.get(id=id)
     if request.method == 'POST':  # If the form has been submitted...
@@ -134,9 +137,15 @@ def post_edit(request, id):
     else:
         form = PostForm(instance=post)
 
-    return render(request, 'post/post_edit.html', {'form': form, 'post':post, })
+    return render(request, 'post/post_edit.html', {'form': form, 'post': post, })
 
 
+@login_required(login_url='/account/login/')
+def delete(request, id):
+    p = get_object_or_404(Post, id=id)
+    if request.POST.get('delete'):
+        p.delete()
+    return HttpResponseRedirect('/account/blog/')
 
 
 
