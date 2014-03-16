@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html ng-app="blogApp">
+<script type="text/ng-template" id="/templates/home.html">
+{% include "home.html" %}
+</script>
+<script type="text/ng-template" id="/templates/detail.html">
+{% include "detail.html" %}
+</script>
+<head>
+    <title></title>
+    <link href="{{ STATIC_URL }}bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+</head>
+<body>
+    <header>
+        <div class="navbar">
+          <div class="navbar-inner">
+            <a class="brand" href="#">Blog</a>
+            <ul class="nav">
+
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#create">Create</a></li>
+
+            </ul>
+            <div class="pull-right">
+            {% if user.is_authenticated %}
+                    {{ user.username }}<a href="/blog/logout/">Log out</a>
+                {% else %}
+                <span class="inline">
+                <form method="post" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    <input type="text" name="username" placeholder="username">
+                    <input type="password" name="password" placeholder="password">
+
+                    <input type="submit" value="login" />
+                    <input type="hidden" name="next" value="{{ next }}" />
+                    </form>
+                </span>
+                {% endif %}
+            </div>
+          </div>
+        </div>
+    </header>
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div id="main" class="span9">
+                <div ng-view></div>
+            </div>
+            <div id="sidebar" class="span3">
+
+
+            <form >
+              <input type="text" class="search-query" placeholder="Search">
+            </form>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="{{ STATIC_URL }}angular/angular.js"> </script>
+<script type="text/javascript" src="{{ STATIC_URL }}app/blogApp.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}app/services.js"></script>
+<script src="http://code.jquery.com/jquery.js"></script>
+<script src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>
+<script src="http://code.angularjs.org/1.0.0rc10/angular-cookies-1.0.0rc10.js"></script>
+<script src="http://code.angularjs.org/1.2.14/angular-route.js"></script>
+<script src="http://code.angularjs.org/1.2.14/angular-resource.js"></script>
+</html>
