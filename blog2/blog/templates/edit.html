@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body ng-controller="detailController">
+    <div id="posts" class="text-center">
+        <form ng-submit="doneEditing(post)">
+            <br><input class="edit input-xxlarge" type="text" ng-model="post.title">
+            <h5>{[{post.pub_date}]}</h5>
+            <textarea rows="20" class="input-xxlarge edit" ng-model="post.body"></textarea>
+            <br><small><b>author: </b> {[{post.author}]}</small>
+            <br><input type="submit" class="btn-info" value="Submit">
+        </form>
+    </div>
+</body>
+
+</html>

@@ -10,5 +10,7 @@ urlpatterns = patterns('',
     url(r'^blog/$', TemplateView.as_view(template_name='main.html')),
     url('^blog/login/$', views.log_in, name='login'),
     url('^blog/logout/$', views.log_out, name='logout'),
+    url(r'^users$', views.UserList.as_view()),
+    url(r'^users/(?P<pk>[0-9]+)/$', views.UserDetail.as_view()),
 )
 

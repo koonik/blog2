@@ -1,9 +1,10 @@
 from rest_framework import generics, permissions
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import *
+from django.contrib.auth.models import User
 
 
-from .serializers import PostSerializer, TagSerializer
+from .serializers import PostSerializer, TagSerializer, UserSerializer
 from .models import Post, Tag
 
 
@@ -48,3 +49,13 @@ def log_in(request):
 def log_out(request):
     logout(request)
     return HttpResponseRedirect('/blog/')
+
+
+class UserList(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+class UserDetail(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer

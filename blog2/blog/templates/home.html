@@ -5,13 +5,14 @@
 </head>
 <body ng-controller="mainController">
     <ul id="posts" class="unstyled text-center">
-        <li ng-repeat="post in posts">
+        <li ng-repeat="post in posts | filter:search">
             <div>
 
                 <a href="#detail/{[{ post.id }]}"><p><h2>{[{post.title}]}</h2></a>
                 <h5>{[{post.pub_date}]}</h5>
                 <br>{[{post.body}]}</p>
                 <small><b>by</b> {[{post.author}]}</small>
+
 
 
 

@@ -12,3 +12,20 @@ TagServices.factory('Tag', ['$resource', function($resource){
         'update': { method:'PUT' }})
 }]);
 
+var CommentServices  = angular.module('CommentServices', ['ngResource']);
+
+CommentServices.factory('Comment', ['$resource', function($resource){
+    return $resource('/comments/:id', {}, {
+        'update': { method:'PUT' }})
+}]);
+
+
+var UserServices  = angular.module('UserServices', ['ngResource']);
+
+UserServices.factory('User', ['$resource', function($resource){
+    return $resource('/users/:id', {}, {
+        'update': { method:'PUT' }})
+}]);
+
+
+

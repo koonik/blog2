@@ -9,6 +9,7 @@ urlpatterns = router.urls
 
 urlpatterns += patterns('',
     url(r'^', include('blog.urls')),
+    url(r'^', include('comments.urls')),
 )
 
 urlpatterns += patterns('',

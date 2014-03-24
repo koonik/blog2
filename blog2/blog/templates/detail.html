@@ -3,13 +3,52 @@
 <head>
     <title></title>
 </head>
-<body ng-controller="mainController">
+<body ng-controller="detailController">
     <div id="posts" class="text-center">
         <p><h2>{[{post.title}]}</h2>
         <h5>{[{post.pub_date}]}</h5>
         <br>{[{post.body}]}</p>
         <small><b>by</b> {[{post.author}]}</small>
+        <br><small><b>tags: </b>
+        <ul class="unstyled inline">
+            <li ng-repeat="tag in post.tags_detail" >
+                {[{ tag.name }]}
+
+            </li>
+        </ul>
+        </small>
+
+        <div ng-if="user_is_active">
+            <br><a class="btn" href="#edit/{[{ post.id }]}" ng-click="editPost(post)">Edit</a>
+            <button class="destroy; btn btn-danger" ng-click="removePost(post)">Delete</button>
+        </div>
+
     </div>
+    <div class="text-center">
+        <form ng-submit="addComment()">
+            <br><textarea rows="6" class="input-large edit" ng-model="commentBody" placeholder="Write your comment here..."></textarea>
+            <div ng-if="user_is_active">
+                <br><input ng-model="commentAuthor" value="{[{ username }]}" ng-show="False">
+                <br><small>by {[{ username }]}</small>
+            </div>
+            <div ng-if="!user_is_active">
+                <br><input type="text" ng-model="commentAuthor" placeholder="Author" class="input-large">
+            </div>
+            <br><input type="submit" class="btn-info" value="Submit">
+        </form>
+    </div>
+    <div class="text-center">
+        <ul class="unstyled">
+            <li ng-repeat="comment in comments">
+                <div ng-if="comment.post == post.id">
+                    <br><h5>{[{ comment.body }]}</h5>
+                    <br>{[{ comment.pub_date }]}
+                    <br><small>by {[{ comment.author }]}</small>
+                </div>
+            </li>
+        </ul>
+    </div>
+
 </body>
 
 </html>
