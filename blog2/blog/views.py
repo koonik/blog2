@@ -2,6 +2,8 @@ from rest_framework import generics, permissions
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import *
 from django.contrib.auth.models import User
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
 
 from .serializers import PostSerializer, TagSerializer, UserSerializer
@@ -59,3 +61,10 @@ class UserList(generics.ListAPIView):
 class UserDetail(generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+
+class CurrentUserView(APIView):
+
+    def get(self, request):
+        serializer = UserSerializer(request.user)
+        return Response(serializer.data)

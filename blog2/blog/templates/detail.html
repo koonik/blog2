@@ -28,8 +28,8 @@
         <form ng-submit="addComment()">
             <br><textarea rows="6" class="input-large edit" ng-model="commentBody" placeholder="Write your comment here..."></textarea>
             <div ng-if="user_is_active">
-                <br><input ng-model="commentAuthor" value="{[{ username }]}" ng-show="False">
-                <br><small>by {[{ username }]}</small>
+                <br><input ng-model="commentAuthor" value="{[{ currentUser.username }]}" ng-show="False">
+                <br><small>by {[{ currentUser.username }]}</small>
             </div>
             <div ng-if="!user_is_active">
                 <br><input type="text" ng-model="commentAuthor" placeholder="Author" class="input-large">

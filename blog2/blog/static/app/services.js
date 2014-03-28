@@ -27,5 +27,13 @@ UserServices.factory('User', ['$resource', function($resource){
         'update': { method:'PUT' }})
 }]);
 
+var CurrentUserServices  = angular.module('CurrentUserServices', ['ngResource']);
+
+CurrentUserServices.factory('CurrentUser', ['$resource', function($resource){
+    return $resource('/user/:id', {}, {
+        'update': { method:'PUT' }})
+}]);
+
+
 
 
